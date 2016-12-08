@@ -32,12 +32,25 @@ def sort_donors(data=DONORS):
 
 
 def get_name():
+    """Return name from user."""
     while True:
         input = raw_input("Donor's name (or 'list'): ")
         if input.lower() == 'list':
             for donor in DONORS.keys():
-                print donor
+                print(donor)
         elif input.lower() == 'quit':
             main()
         else:
             return input
+
+
+def get_amount():
+    """Return amount entered."""
+    while True:
+        input = raw_input("Donation Amount: ")
+        if type(input) is int:
+            return input
+        elif input.lower() == 'quit':
+            main()
+        else:
+            print('Wrong Input')
