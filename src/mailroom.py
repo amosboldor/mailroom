@@ -54,3 +54,14 @@ def get_amount():
             main()
         else:
             print('Wrong Input')
+
+
+def print_report(donors):
+    """Print out the all the donor data."""
+    s = "{:<20}{:<20}{:<20}{:<20}"
+    print(s.format('Donor', 'Total', 'Avg', 'Num'))
+    for d in donors:
+        print(s.format(d.title(),
+                       donors[d]['total'],
+                       donors[d]['avg_donation'],
+                       donors[d]['number_of_donations']))
