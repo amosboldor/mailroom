@@ -12,36 +12,41 @@ def main():
     while True:
         action = inp("\nSend thank you email or create report:  ")
         if action.lower() in "send thank you":
-            donor_name = verify_name(get_name())
+            donor_name = verify_name(get_name()).title()
             amount = verify_num(get_amount())
-            DONORS.setdefault(donor_name, []).append(amount)
+            DONORS.setdefault(donor_name, {})
+            DONORS[donor_name].setdefault("history", []).append(amount)
             set_stats(DONORS[donor_name])
-            send_thanks(donor_name)
+            print(send_thanks(donor_name))
         elif action.lower() in "create report":
-            print(format(sort_donors()))
+            print_report(DONORS)
         elif action in QUIT:
             sys.exit()
         else:
             print('Wrong Input')
 
 
-def set_stats(donor_name):
+def set_stats(donor):
     """Update total donations and avg donation for a donor."""
-    donor = DONORS[donor_name]
-    donor["total"] = sum(DONORS[donor_name]["history"])
+    donor["total"] = sum(donor["history"])
     donor["num_donations"] = len(donor["history"])
     donor["avg_donation"] = donor["total"] / donor["num_donations"]
 
 
-def calc_avg(donor_name):
-    """Return total donations for a donor."""
-    return reduce(lambda x, y: x + y)
-
-
 def send_thanks(donor_name):
     """Send formatted email to donor."""
-    email = 'Thank you {} for your generous donation!'.format(donor_name)
-    return(email)
+    email = """\n
+        Dear {},
+
+            We thank you for your generous donation of ${:,.2f}.
+            We hope that you have a fantastic life,
+            and we look forward to seeing you at the charity gala this christmas.
+
+        Sincelery,
+            Barbie Corp.
+    """
+
+    return(email.format(donor_name, DONORS[donor_name]["history"][-1]))
 
 
 def sort_donors(data=DONORS):
@@ -52,19 +57,18 @@ def sort_donors(data=DONORS):
 def verify_name(name):
     """Return name from user."""
     while True:
-        input = inp("\nDonor's name (or 'list'):  ")
-        if input.lower() == 'list':
+        if name.lower() == 'list':
             for donor in DONORS.keys():
                 print(donor)
-        elif input.lower() in QUIT:
+        elif name.lower() in QUIT:
             main()
         else:
-            return input
+            return name
 
 
 def get_name():
     """Ask user for donor name."""
-    return inp("\nDonor's name (or 'list'):  ")
+    return inp("\nDonor's name (or 'list'):  ").title()
 
 
 def get_amount():
@@ -86,9 +90,23 @@ def verify_num(input):
         return input
 
 
+def print_report(donors):
+    """Print out the all the donor data."""
+    s = "{:<20}{:<20}{:<20}{:<20}"
+    print(s.format('Donor', 'Total Donations', 'Avg Donation', 'Num Donations'))
+    for d in donors:
+        print(s.format(d.title(),
+                       donors[d]['total'],
+                       donors[d]['avg_donation'],
+                       donors[d]['num_donations']))
+
+
 if __name__ == '__main__':  # pragma: no cover
     try:
         inp = raw_input
     except NameError:
         pass
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        sys.exit()
