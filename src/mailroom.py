@@ -7,7 +7,7 @@ QUIT = ['quit', 'exit', 'q']
 inp = input
 
 
-def main():
+def main(): # pragma: no cover
     """Main function that call other functions."""
     while True:
         action = inp("\nSend thank you email or create report:  ")
@@ -19,7 +19,7 @@ def main():
             set_stats(DONORS[donor_name])
             print(send_thanks(donor_name))
         elif action.lower() in "create report":
-            print_report(DONORS)
+            print(print_report(DONORS))
         elif action in QUIT:
             sys.exit()
         else:
@@ -33,7 +33,7 @@ def set_stats(donor):
     donor["avg_donation"] = donor["total"] / donor["num_donations"]
 
 
-def send_thanks(donor_name):
+def send_thanks(donor_name, don=DONORS):
     """Send formatted email to donor."""
     email = """\n
         Dear {},
@@ -46,7 +46,7 @@ def send_thanks(donor_name):
             Barbie Corp.
     """
 
-    return(email.format(donor_name, DONORS[donor_name]["history"][-1]))
+    return(email.format(donor_name, don[donor_name]["history"][-1]))
 
 
 def sort_donors(data=DONORS):
@@ -93,12 +93,14 @@ def verify_num(input):
 def print_report(donors):
     """Print out the all the donor data."""
     s = "{:<20}{:<20}{:<20}{:<20}"
-    print(s.format('Donor', 'Total Donations', 'Avg Donation', 'Num Donations'))
+    report = ''
+    report += s.format('Donor', 'Total', 'Avg', 'Num')
     for d in donors:
-        print(s.format(d.title(),
-                       donors[d]['total'],
-                       donors[d]['avg_donation'],
-                       donors[d]['num_donations']))
+        report += '\n' + s.format(d.title(),
+                                  donors[d]['total'],
+                                  donors[d]['avg_donation'],
+                                  donors[d]['num_donations'])
+    return report
 
 
 if __name__ == '__main__':  # pragma: no cover
