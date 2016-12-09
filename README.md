@@ -1,3 +1,4 @@
+```
 ============================= test session starts ==============================
 platform darwin -- Python 3.5.2, pytest-3.0.5, py-1.4.31, pluggy-0.4.0
 rootdir: /Users/forf/codefellows/401/assignments/mailroom_madness/mailroom, inifile: 
@@ -16,3 +17,4 @@ TOTAL                 63     12    81%
 
 
 =========================== 7 passed in 0.07 seconds ===========================
+```
