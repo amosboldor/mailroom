@@ -1,7 +1,5 @@
 """Testing mailroom mudule."""
 import pytest
-import sys
-import mailroom
 
 
 NUMS = [
@@ -21,28 +19,27 @@ DICT = {
     'rick': {'history': [100, 6, 40, 22], 'total': 21,
              'avg_donation': 200, 'num_donations': 2},
     'slim': {'history': [11], 'total': 213,
-             'avg_donation': 200, 'num_donations': 32},
-    'bob flannery': {'history': [1], 'total': 54,
-                     'avg_donation': 2000, 'num_donations': 32},
+             'avg_donation': 200.2, 'num_donations': 32},
+    'bob': {'history': [1], 'total': 54,
+            'avg_donation': 2000, 'num_donations': 32},
     'jack': {'history': [33000], 'total': 3,
-             'avg_donation': 1, 'num_donations': 32}
+             'avg_donation': 1.50, 'num_donations': 32}
 }
 
 REPORT = [
-    ['Donor', 'Total', 'Donations', 'Avg.', 'Donation', 'Num.', 'Donations'],
-    ['Slim', '213', '200', '32'],
-    ['Jack', '3', '1', '32'],
-    ['Rick', '21', '200', '2'],
-    ['Bob', 'Flannery', '54', '2000', '32']
+    ['Slim', '213.00', '200.20', '32'],
+    ['Jack', '3.00', '1.50', '32'],
+    ['Rick', '21.00', '200.00', '2'],
+    ['Bob', '54.00', '2,000.00', '32']
 ]
 
 
 def test_format_email():
     """Test out output of thank email."""
     from mailroom import format_email
-    email = format_email('bob flannery', DICT)
+    email = format_email('bob', DICT)
     assert email == """\n
-        Dear Bob Flannery,
+        Dear Bob,
 
             We thank you for your generous donation of $1.00.
             We hope that you have a fantastic life,
@@ -56,12 +53,13 @@ def test_format_email():
 def test_sort_donors():
     """Testing if sort function sort by ammount."""
     from mailroom import sort_donors
-    dict_sorted = ['slim', 'bob flannery', 'rick', 'jack']
+    dict_sorted = ['slim', 'bob', 'rick', 'jack']
     assert dict_sorted == sort_donors(data=DICT)
 
 
 @pytest.mark.parametrize('name, res', NAMES)
 def test_verify_name(name, res):
+    """Test verify_name."""
     from mailroom import verify_name
     assert verify_name(name) is res
 
@@ -80,12 +78,12 @@ def test_invalid_verify_num():
         verify_num('NOTAnumber12e')
 
 
-def test_print_report():
-    """Test the print_report output."""
-    from mailroom import print_report
-    report = print_report(DICT).split()
+def test_create_report():
+    """Test the create_report output."""
+    from mailroom import create_report
+    report = create_report(DICT).split()
     for m in REPORT:
-        for n in m:
+        for n in m[1:]:
             assert n in report
 
 

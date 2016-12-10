@@ -21,7 +21,7 @@ def mailroom():  # pragma: no cover
         if action.lower() in "send thank you email":
             print(send_thanks())
         elif action.lower() in "create report":
-            print(print_report())
+            print(create_report())
         elif action in QUIT:
             sys.exit()
         else:
@@ -103,19 +103,20 @@ def verify_num(user_input):
         return user_input
 
 
-def print_report(donors=DONORS):
+def create_report(donors=DONORS):
     """Print out the all the donor data."""
-    s = "\t{:<20}{:<20}{:<20}{:<20}"
+    header_s = "\t{:<20}{:<20}{:<20}{:<20}"
+    donor_s = "\t{:<20}{:<20,.2f}{:<20,.2f}{:<20}"
     report = '\n'
-    report += s.format('Donor',
-                       'Total Donations',
-                       'Avg. Donation',
-                       'Num. Donations') + '\n'
+    report += header_s.format('Donor',
+                              'Total Donations',
+                              'Avg. Donation',
+                              'Num. Donations') + '\n'
     for d in donors:
-        report += '\n' + s.format(d.title(),
-                                  donors[d]['total'],
-                                  donors[d]['avg_donation'],
-                                  donors[d]['num_donations'])
+        report += '\n' + donor_s.format(d.title(),
+                                        donors[d]['total'],
+                                        donors[d]['avg_donation'],
+                                        donors[d]['num_donations'])
     return report
 
 
