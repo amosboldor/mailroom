@@ -95,9 +95,3 @@ def test_set_stats():
         'total': 168,
         'avg_donation': 42,
         'num_donations': 4}
-
-
-
-
-
-
