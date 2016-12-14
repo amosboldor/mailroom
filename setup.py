@@ -5,8 +5,8 @@ from setuptools import setup
 
 setup(
     name="mailroom",
-    description="An implementation of backscrather function",
-    version=0.1,
+    description="Help track and thank donors for donations",
+    version=0.2,
     author=["Ford Fowler", "Amos Boldor"],
     author_email=["fordjfowler@gmail.com", "amosboldor@gmail.com"],
     licencse="MIT",
@@ -14,5 +14,10 @@ setup(
     py_modules=["mailroom"],
     extras_require={
         "test": ["pytest", "pytest-cov", "tox"]
+    },
+    entry_points={
+        'console_scripts': [
+            'mailroom = mailroom:main'
+        ]
     }
 )
