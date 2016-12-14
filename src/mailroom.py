@@ -1,17 +1,34 @@
 """Module to assist with donations."""
 import sys
+import os
 
 
 DONORS = {}
 QUIT = ['quit', 'exit', 'q']
 
 
-def main():
+def main():  # pragma: no cover
     """Entry point."""
     try:
+        start_banner()
         mailroom()
     except KeyboardInterrupt:
         sys.exit()
+
+
+def start_banner():  # pragma: no cover
+    """Initial screen output."""
+    os.system('clear')
+    banner = ''
+    title = ''
+    term_size = os.get_terminal_size()[0]
+    for i in range(term_size):
+        banner += '='
+    for i in range(term_size // 2 - 8):
+        title += ' '
+    title += "MAILROOM MADNESS"
+    print(banner + '\n\n' + title + '\n\n' + banner)
+    print("Enter 'q' to quit / go back. Single words work for initial prompt.")
 
 
 def mailroom():  # pragma: no cover
@@ -28,7 +45,7 @@ def mailroom():  # pragma: no cover
             print('Invalid Input')
 
 
-def send_thanks():
+def send_thanks():  # pragma: no cover
     """Handle sending thank you email to donor."""
     donor_name = verify_name(get_name()).title()
     amount = verify_num(get_amount())
