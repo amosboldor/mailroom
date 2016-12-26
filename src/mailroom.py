@@ -84,7 +84,7 @@ def sort_donors(data=DONORS):
     return sorted(data, key=lambda donor: data[donor]['total'], reverse=True)
 
 
-def verify_name(name):
+def verify_name(name):  # pragma: no cover
     """Return name from user."""
     if name.lower() == 'list':
         for donor in DONORS.keys():
@@ -96,12 +96,12 @@ def verify_name(name):
         return name
 
 
-def get_name():
+def get_name():  # pragma: no cover
     """Ask user for donor name."""
     return input("\nDonor's name (or 'list'):  ").title()
 
 
-def get_amount():
+def get_amount():  # pragma: no cover
     """Take user input."""
     return input("\n    Donation Amount:  ")
 
@@ -112,7 +112,7 @@ def verify_num(user_input):
         user_input = float(user_input)
     except ValueError:
         if user_input.lower() in QUIT:
-            main()
+            main()  # pragma: no cover
         else:
             print('Invalid Input')
             return verify_num(get_amount())
