@@ -17,13 +17,13 @@ collected 10 items
 
 src/test_mailroom.py ..........
 
----------- coverage: platform darwin, python 2.7.10-final-0 ----------
+---------- coverage: platform linux2, python 2.7.12-final-0 ----------
 Name                   Stmts   Miss  Cover   Missing
 ----------------------------------------------------
-src/mailroom.py           54     16    70%   11-14, 33-38, 73-75, 77, 84, 98
+src/mailroom.py           30      0   100%
 src/test_mailroom.py      32      0   100%
 ----------------------------------------------------
-TOTAL                     86     16    81%
+TOTAL                     62      0   100%
 
 
 ========================== 10 passed in 0.07 seconds ===========================
@@ -36,13 +36,13 @@ collected 10 items
 
 src/test_mailroom.py ..........
 
----------- coverage: platform darwin, python 3.5.2-final-0 -----------
+----------- coverage: platform linux, python 3.5.2-final-0 -----------
 Name                   Stmts   Miss  Cover   Missing
 ----------------------------------------------------
-src/mailroom.py           54     16    70%   11-14, 33-38, 73-75, 77, 84, 98
+src/mailroom.py           30      0   100%
 src/test_mailroom.py      32      0   100%
 ----------------------------------------------------
-TOTAL                     86     16    81%
+TOTAL                     62      0   100%
 
 
 ========================== 10 passed in 0.09 seconds ===========================
