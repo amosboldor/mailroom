@@ -34,10 +34,6 @@ REPORT = [
 ]
 
 
-def test_send_thanks():
-    """Functional test for send_thanks."""
-
-
 def test_format_email():
     """Test out output of thank email."""
     from mailroom import format_email
